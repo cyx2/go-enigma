@@ -32,19 +32,28 @@ func TestRotorDoubleRotate(t *testing.T) {
 
 func TestReadForward3(t *testing.T) {
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
-	// Rotor Base: EKMFLGDQVZNTOWYHXUSPAIBRCJ
-	baseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
-	rotor1, rotor2, rotor3 := enigma.InitRotors3(baseWiring, baseWiring, baseWiring)
+	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
+
+	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+	// Rotor Base2:AJDKSIRUXBLHWTMCQGZNPYFVOE
+
+	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+	// Rotor Base3:BDFHJLCPRTXVZNYEIWGAKMUSQO
+
+	baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+	baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
+	baseWiring3 := "BDFHJLCPRTXVZNYEIWGAKMUSQO"
+	rotor1, rotor2, rotor3 := enigma.InitRotors3(baseWiring1, baseWiring2, baseWiring3)
 	rotors := []*enigma.Rotor{rotor1, rotor2, rotor3}
 
 	result1 := enigma.ReadForward3(rotors, "A")
-	expectedResult1 := "T"
+	expectedResult1 := "G"
 
 	result2 := enigma.ReadForward3(rotors, "F")
-	expectedResult2 := "F"
+	expectedResult2 := "W"
 
 	result3 := enigma.ReadForward3(rotors, "P")
-	expectedResult3 := "X"
+	expectedResult3 := "K"
 
 	if result1 != expectedResult1 {
 		t.Errorf("ReadForward3 case 1, got %v want %v", result1, expectedResult1)
