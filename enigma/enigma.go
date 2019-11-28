@@ -37,12 +37,30 @@ func InitRotors3(rotorWiring1, rotorWiring2, rotorWiring3 string) (rotor1, rotor
 	return
 }
 
-// ReadForward3 encrypts letter using 3 rotors in sequence
-func ReadForward3(rotors []*Rotor, letter string) (encryptedLetter string) {
+// ReadForward forward encrypts letter using 3 rotors in sequence
+func ReadForward(rotors []*Rotor, letter string) (encryptedLetter string) {
 	encryptedLetter = letter
 	for i := range rotors {
 		encryptedLetter = ReadRotor(rotors[i], encryptedLetter)
 	}
 
+	return encryptedLetter
+}
+
+// ReadBackward backward encrypts letter using 3 rotors in sequence
+func ReadBackward(rotors []*Rotor, letter string) (encryptedLetter string) {
+	for i, j := 0, len(rotors)-1; i < j; i, j = i+1, j-1 {
+		rotors[i], rotors[j] = rotors[j], rotors[i]
+	}
+
+	encryptedLetter = letter
+	for i := range rotors {
+		rawLetter := encryptedLetter
+		encryptedLetter = ReadRotorBackwards(rotors[i], rawLetter)
+	}
+
+	for i, j := 0, len(rotors)-1; i < j; i, j = i+1, j-1 {
+		rotors[i], rotors[j] = rotors[j], rotors[i]
+	}
 	return encryptedLetter
 }

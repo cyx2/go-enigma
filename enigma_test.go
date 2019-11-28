@@ -30,7 +30,7 @@ func TestRotorDoubleRotate(t *testing.T) {
 	}
 }
 
-func TestReadForward3(t *testing.T) {
+func TestReadForward(t *testing.T) {
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
 	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
 
@@ -46,13 +46,13 @@ func TestReadForward3(t *testing.T) {
 	rotor1, rotor2, rotor3 := enigma.InitRotors3(baseWiring1, baseWiring2, baseWiring3)
 	rotors := []*enigma.Rotor{rotor1, rotor2, rotor3}
 
-	result1 := enigma.ReadForward3(rotors, "A")
+	result1 := enigma.ReadForward(rotors, "A")
 	expectedResult1 := "G"
 
-	result2 := enigma.ReadForward3(rotors, "F")
+	result2 := enigma.ReadForward(rotors, "F")
 	expectedResult2 := "W"
 
-	result3 := enigma.ReadForward3(rotors, "P")
+	result3 := enigma.ReadForward(rotors, "P")
 	expectedResult3 := "K"
 
 	if result1 != expectedResult1 {
@@ -63,5 +63,41 @@ func TestReadForward3(t *testing.T) {
 	}
 	if result3 != expectedResult3 {
 		t.Errorf("ReadForward3 case 3, got %v want %v", result3, expectedResult3)
+	}
+}
+
+func TestReadBackward(t *testing.T) {
+	// Rotor Base3:BDFHJLCPRTXVZNYEIWGAKMUSQO
+	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+	// Rotor Base2:AJDKSIRUXBLHWTMCQGZNPYFVOE
+	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
+	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+	baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+	baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
+	baseWiring3 := "BDFHJLCPRTXVZNYEIWGAKMUSQO"
+	rotor1, rotor2, rotor3 := enigma.InitRotors3(baseWiring1, baseWiring2, baseWiring3)
+	rotors := []*enigma.Rotor{rotor1, rotor2, rotor3}
+
+	result1 := enigma.ReadBackward(rotors, "A")
+	expectedResult1 := "K"
+
+	result2 := enigma.ReadBackward(rotors, "F")
+	expectedResult2 := "T"
+
+	result3 := enigma.ReadBackward(rotors, "P")
+	expectedResult3 := "E"
+
+	if result1 != expectedResult1 {
+		t.Errorf("ReadBackward case 1, got %v want %v", result1, expectedResult1)
+	}
+	if result2 != expectedResult2 {
+		t.Errorf("ReadBackward case 2, got %v want %v", result2, expectedResult2)
+	}
+	if result3 != expectedResult3 {
+		t.Errorf("ReadBackward case 3, got %v want %v", result3, expectedResult3)
 	}
 }
