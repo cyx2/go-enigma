@@ -60,3 +60,13 @@ func GetPlugboardWiring(plugboard *Plugboard) (plugboardWiring string) {
 func GetAlphabetIndex(letter string) (index int) {
 	return strings.Index(alphabet, letter)
 }
+
+// Rotate function rotates a roter one notch
+func (rotor *Rotor) Rotate() {
+	currentFuncWiring := ReadRotorFuncWiring(rotor)
+	firstLetter := string(currentFuncWiring[0])
+
+	newFuncWiring := strings.Join([]string{currentFuncWiring, firstLetter}, "")
+	newFuncWiringRunes := []rune(newFuncWiring)[1 : len(alphabet)+1]
+	rotor.funcWiring = string(newFuncWiringRunes)
+}

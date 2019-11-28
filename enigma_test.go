@@ -80,3 +80,28 @@ func TestReadRotor(t *testing.T) {
 		t.Errorf("ReadRotor(rotor, enigma.GetAlphabetIndex('J')), got %v want %v", readLetter2, correctReadLetter2)
 	}
 }
+
+func TestRotorRotate(t *testing.T) {
+	baseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+	rotor := enigma.InitRotor(baseWiring)
+	rotor.Rotate()
+	newFuncWiring := enigma.ReadRotorFuncWiring(rotor)
+	expectedFuncWiring := "KMFLGDQVZNTOWYHXUSPAIBRCJE"
+
+	if newFuncWiring != expectedFuncWiring {
+		t.Errorf("InitRotor('EKMFLGDQVZNTOWYHXUSPAIBRCJ'), got %v want %v", newFuncWiring, expectedFuncWiring)
+	}
+}
+
+func TestRotorDoubleRotate(t *testing.T) {
+	baseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+	rotor := enigma.InitRotor(baseWiring)
+	rotor.Rotate()
+	rotor.Rotate()
+	newFuncWiring := enigma.ReadRotorFuncWiring(rotor)
+	expectedFuncWiring := "MFLGDQVZNTOWYHXUSPAIBRCJEK"
+
+	if newFuncWiring != expectedFuncWiring {
+		t.Errorf("InitRotor('EKMFLGDQVZNTOWYHXUSPAIBRCJ'), got %v want %v", newFuncWiring, expectedFuncWiring)
+	}
+}
