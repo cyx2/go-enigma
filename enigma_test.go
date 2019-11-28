@@ -22,9 +22,9 @@ func TestReadPlugBoard(t *testing.T) {
 	// Alphabet:  ABCDEFGHIJKLMNOPQRSTUVWXYZ
 	// Plugboard: EKMFLGDQVZNTOWYHXUSPAIBRCJ
 	plugboard := enigma.InitPlugboard("EKMFLGDQVZNTOWYHXUSPAIBRCJ")
-	readLetter1 := enigma.ReadPlugboard(plugboard, enigma.GetAlphabetIndex("B"))
+	readLetter1 := enigma.ReadPlugboard(plugboard, "B")
 	correctReadLetter1 := "K"
-	readLetter2 := enigma.ReadPlugboard(plugboard, enigma.GetAlphabetIndex("T"))
+	readLetter2 := enigma.ReadPlugboard(plugboard, "T")
 	correctReadLetter2 := "P"
 
 	if readLetter1 != correctReadLetter1 {
@@ -41,16 +41,16 @@ func TestReadRotor(t *testing.T) {
 	baseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
 	rotor := enigma.InitRotor(baseWiring)
 
-	readLetter1 := enigma.ReadRotor(rotor, enigma.GetAlphabetIndex("O"))
+	readLetter1 := enigma.ReadRotor(rotor, "O")
 	correctReadLetter1 := "Y"
-	readLetter2 := enigma.ReadRotor(rotor, enigma.GetAlphabetIndex("J"))
+	readLetter2 := enigma.ReadRotor(rotor, "J")
 	correctReadLetter2 := "Z"
 
 	if readLetter1 != correctReadLetter1 {
-		t.Errorf("ReadRotor(rotor, enigma.GetAlphabetIndex('O')), got %v want %v", readLetter1, correctReadLetter1)
+		t.Errorf("ReadRotor(rotor, 'O'), got %v want %v", readLetter1, correctReadLetter1)
 	}
 	if readLetter2 != correctReadLetter2 {
-		t.Errorf("ReadRotor(rotor, enigma.GetAlphabetIndex('J')), got %v want %v", readLetter2, correctReadLetter2)
+		t.Errorf("ReadRotor(rotor, 'J'), got %v want %v", readLetter2, correctReadLetter2)
 	}
 }
 

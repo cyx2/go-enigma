@@ -22,13 +22,15 @@ type Reflector struct {
 }
 
 // ReadRotor takes the readIndex and returns its mapped value
-func ReadRotor(rotor *Rotor, readIndex int) (letter string) {
+func ReadRotor(rotor *Rotor, readLetter string) (letter string) {
+	readIndex := GetAlphabetIndex(readLetter)
 	letter = string(rotor.funcWiring[readIndex])
 	return letter
 }
 
 // ReadPlugboard takes the readIndex and returns its mapped value
-func ReadPlugboard(plugboard *Plugboard, readIndex int) (letter string) {
+func ReadPlugboard(plugboard *Plugboard, readLetter string) (letter string) {
+	readIndex := GetAlphabetIndex(readLetter)
 	letter = string(plugboard.wiring[readIndex])
 	return letter
 }
