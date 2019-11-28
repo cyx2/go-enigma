@@ -30,7 +30,7 @@ func TestRotorDoubleRotate(t *testing.T) {
 	}
 }
 
-func TestReadForward(t *testing.T) {
+func TestRotorRoundTrip(t *testing.T) {
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
 	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
 
@@ -40,33 +40,9 @@ func TestReadForward(t *testing.T) {
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
 	// Rotor Base3:BDFHJLCPRTXVZNYEIWGAKMUSQO
 
-	baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
-	baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
-	baseWiring3 := "BDFHJLCPRTXVZNYEIWGAKMUSQO"
-	rotor1, rotor2, rotor3 := enigma.InitRotors3(baseWiring1, baseWiring2, baseWiring3)
-	rotors := []*enigma.Rotor{rotor1, rotor2, rotor3}
+	// Base1: EKMFLGDQVZNTOWYHXUSPAIBRCJ
+	// Refl1: JCRBIAPSUXHYWOTNZVQDGLFMKE
 
-	result1 := enigma.ReadForward(rotors, "A")
-	expectedResult1 := "G"
-
-	result2 := enigma.ReadForward(rotors, "F")
-	expectedResult2 := "W"
-
-	result3 := enigma.ReadForward(rotors, "P")
-	expectedResult3 := "K"
-
-	if result1 != expectedResult1 {
-		t.Errorf("ReadForward3 case 1, got %v want %v", result1, expectedResult1)
-	}
-	if result2 != expectedResult2 {
-		t.Errorf("ReadForward3 case 2, got %v want %v", result2, expectedResult2)
-	}
-	if result3 != expectedResult3 {
-		t.Errorf("ReadForward3 case 3, got %v want %v", result3, expectedResult3)
-	}
-}
-
-func TestReadBackward(t *testing.T) {
 	// Rotor Base3:BDFHJLCPRTXVZNYEIWGAKMUSQO
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
@@ -75,29 +51,33 @@ func TestReadBackward(t *testing.T) {
 
 	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
 	baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
 	baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
 	baseWiring3 := "BDFHJLCPRTXVZNYEIWGAKMUSQO"
+	reflBaseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+
 	rotor1, rotor2, rotor3 := enigma.InitRotors3(baseWiring1, baseWiring2, baseWiring3)
 	rotors := []*enigma.Rotor{rotor1, rotor2, rotor3}
+	reflector := enigma.InitReflector(reflBaseWiring)
 
-	result1 := enigma.ReadBackward(rotors, "A")
-	expectedResult1 := "K"
+	forwardRead := enigma.ReadForward(rotors, "A")
+	expForwardRead := "G"
 
-	result2 := enigma.ReadBackward(rotors, "F")
-	expectedResult2 := "T"
-
-	result3 := enigma.ReadBackward(rotors, "P")
-	expectedResult3 := "E"
-
-	if result1 != expectedResult1 {
-		t.Errorf("ReadBackward case 1, got %v want %v", result1, expectedResult1)
+	if forwardRead != expForwardRead {
+		t.Errorf("Forward read failed, got %v, want %v", forwardRead, expForwardRead)
 	}
-	if result2 != expectedResult2 {
-		t.Errorf("ReadBackward case 2, got %v want %v", result2, expectedResult2)
+
+	reflectorRead := enigma.ReadReflector(reflector, forwardRead)
+	expReflectorRead := "A"
+
+	if reflectorRead != expReflectorRead {
+		t.Errorf("Reflector read failed, got %v, want %v", reflectorRead, expReflectorRead)
 	}
-	if result3 != expectedResult3 {
-		t.Errorf("ReadBackward case 3, got %v want %v", result3, expectedResult3)
+
+	backwardRead := enigma.ReadBackward(rotors, reflectorRead)
+	expBackwardRead := "K"
+
+	if backwardRead != expBackwardRead {
+		t.Errorf("Backward read failed, got %v, want %v", backwardRead, expBackwardRead)
 	}
 }
