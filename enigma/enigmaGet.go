@@ -7,6 +7,11 @@ func GetAlphabetIndex(letter string) (index int) {
 	return strings.Index(alphabet, letter)
 }
 
+// GetWiringIndex returns the index of a letter in the wiring argument
+func GetWiringIndex(wiring, letter string) (index int) {
+	return strings.Index(wiring, letter)
+}
+
 // GetPlugboardWiring returns the wiring field in the struct of the plugboard argument
 func GetPlugboardWiring(plugboard *Plugboard) (plugboardWiring string) {
 	return plugboard.wiring
