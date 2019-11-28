@@ -36,3 +36,13 @@ func InitRotors3(rotorWiring1, rotorWiring2, rotorWiring3 string) (rotor1, rotor
 	rotor1, rotor2, rotor3 = InitRotor(rotorWiring1), InitRotor(rotorWiring2), InitRotor(rotorWiring3)
 	return
 }
+
+// ReadForward3 encrypts letter using 3 rotors in sequence
+func ReadForward3(rotors []*Rotor, letter string) (encryptedLetter string) {
+	encryptedLetter = letter
+	for i := range rotors {
+		encryptedLetter = ReadRotor(rotors[i], encryptedLetter)
+	}
+
+	return encryptedLetter
+}
