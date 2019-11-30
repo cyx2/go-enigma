@@ -10,7 +10,7 @@ func InitPlugboard(newWiring string) (newPlugboard *Plugboard) {
 // InitRotor initializes a single Rotor
 func InitRotor(newWiring string) (newRotor *Rotor) {
 	newRotor = new(Rotor)
-	newRotor.baseWiring, newRotor.funcWiring = newWiring, newWiring
+	newRotor.baseWiring, newRotor.offset = newWiring, 0
 	return newRotor
 }
 

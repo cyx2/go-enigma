@@ -7,6 +7,11 @@ func GetAlphabetIndex(letter string) (index int) {
 	return strings.Index(alphabet, letter)
 }
 
+// GetAlphabetLetter returns the letter at the argument index in the alphabet
+func GetAlphabetLetter(index int) (letter string) {
+	return string(alphabet[index])
+}
+
 // GetWiringIndex returns the index of a letter in the wiring argument
 func GetWiringIndex(wiring, letter string) (index int) {
 	return strings.Index(wiring, letter)
@@ -23,6 +28,11 @@ func GetReflectorWiring(reflector *Reflector) (baseWiring, reflWiring string) {
 }
 
 // GetRotorWiring returns both the base and functional wiring of a rotor
-func GetRotorWiring(rotor *Rotor) (baseWiring, funcWiring string) {
-	return rotor.baseWiring, rotor.funcWiring
+func GetRotorWiring(rotor *Rotor) (wiring string) {
+	return rotor.baseWiring
+}
+
+// GetRotorOffset returns the offset of a rotor
+func GetRotorOffset(rotor *Rotor) (offset int) {
+	return rotor.offset
 }

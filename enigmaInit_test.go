@@ -18,16 +18,17 @@ func TestInitPlugboard(t *testing.T) {
 
 func TestInitRotor(t *testing.T) {
 	// Base Wiring: EKMFLGDQVZNTOWYHXUSPAIBRCJ
-	// Func Wiring: EKMFLGDQVZNTOWYHXUSPAIBRCJ
 	rotorWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
 	rotor := enigma.InitRotor(rotorWiring)
-	newRotorBaseWiring, newRotorFuncWiring := enigma.GetRotorWiring(rotor)
+	newRotorBaseWiring := enigma.GetRotorWiring(rotor)
+	newRotorOffset := enigma.GetRotorOffset(rotor)
+	expNewRotorOffset := 0
 
 	if newRotorBaseWiring != rotorWiring {
 		t.Errorf("Got rotor base wiring of %v, want %v", newRotorBaseWiring, rotorWiring)
 	}
-	if newRotorFuncWiring != rotorWiring {
-		t.Errorf("Got rotor func wiring of %v, want %v", newRotorFuncWiring, rotorWiring)
+	if newRotorOffset != expNewRotorOffset {
+		t.Errorf("Got rotor offset wiring of %v, want %v", newRotorOffset, expNewRotorOffset)
 	}
 }
 
