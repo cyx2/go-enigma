@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"go-enigma/enigma"
 	"testing"
 )
@@ -159,5 +160,24 @@ func TestProcessLetter(t *testing.T) {
 
 	if processedLetter2 != expProcessedLetter2 {
 		t.Errorf("Tried to process %v, got %v, want %v", testLetter2, processedLetter2, expProcessedLetter2)
+	}
+}
+
+// NOTE that as of May 12 ProcessString and TestProcessString do not include rotor rotation
+func TestProcessString(t *testing.T) {
+	baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+	baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
+	baseWiring3 := "BDFHJLCPRTXVZNYEIWGAKMUSQO"
+	reflBaseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+
+	newMachine := enigma.InitMachine(baseWiring1, baseWiring2, baseWiring3, reflBaseWiring)
+
+	testString := "AZ"
+	processedString := newMachine.ProcessString(testString)
+	expProcessedString := "KE"
+	fmt.Println("Processed " + testString + " got " + processedString + " expected " + expProcessedString)
+
+	if processedString != expProcessedString {
+		t.Errorf("Tried to process string %v, got %v, want %v", testString, processedString, expProcessedString)
 	}
 }

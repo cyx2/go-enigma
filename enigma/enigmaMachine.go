@@ -1,5 +1,7 @@
 package enigma
 
+import "strings"
+
 // Rotate function rotates a roter one notch
 func (rotor *Rotor) Rotate() {
 	currentOffset := GetRotorOffset(rotor)
@@ -12,7 +14,7 @@ func (rotor *Rotor) Rotate() {
 	}
 }
 
-// ProcessLetter will process a single enigma letter
+// ProcessLetter will process a single letter
 func (machine *Machine) ProcessLetter(letter string) (processedLetter string) {
 	machineRotors := machine.rotors
 	machineReflector := machine.reflector
@@ -24,4 +26,17 @@ func (machine *Machine) ProcessLetter(letter string) (processedLetter string) {
 	processedLetter = processBackward
 
 	return processedLetter
+}
+
+// ProcessString will process a string of many letters
+func (machine *Machine) ProcessString(manyLetters string) (output string) {
+	inputLetters := []rune(manyLetters)
+	processedLetters := make([]string, len(inputLetters))
+
+	for index, letter := range inputLetters {
+		processedLetters[index] = machine.ProcessLetter(string(letter))
+	}
+
+	output = strings.Join(processedLetters, "")
+	return output
 }
