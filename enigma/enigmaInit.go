@@ -16,10 +16,6 @@ func InitRotor(newWiring string) (newRotor *Rotor) {
 
 // InitReflector initializes a single Reflector
 func InitReflector(newWiring string) (newReflector *Reflector) {
-	// newRotor = new(Rotor)
-	// newRotor.baseWiring, newRotor.funcWiring = newWiring, newWiring
-	// return newRotor
-
 	newReflector = new(Reflector)
 	newReflector.baseWiring = newWiring
 	newReflector.reflWiring = reverse(newWiring)
