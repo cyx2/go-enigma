@@ -10,6 +10,8 @@ func ReadPlugboard(plugboard *Plugboard, readLetter string) (letter string) {
 // ReadRotor takes a readIndex and returns its mapped index
 func ReadRotor(rotor *Rotor, readIndex int) (retIndex int) {
 	baseIndex := readIndex + GetRotorOffset(rotor)
+	baseIndex = offsetAdjust(baseIndex)
+
 	retLetter := string(rotor.baseWiring[baseIndex])
 	retIndex = GetAlphabetIndex(retLetter)
 	return retIndex
@@ -20,6 +22,8 @@ func ReadRotorBackwards(rotor *Rotor, readIndex int) (retIndex int) {
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
 	// Rotor Base: EKMFLGDQVZNTOWYHXUSPAIBRCJ
 	baseIndex := readIndex + GetRotorOffset(rotor)
+	baseIndex = offsetAdjust(baseIndex)
+
 	retLetter := GetAlphabetLetter(baseIndex)
 	retIndex = GetAlphabetIndex(retLetter)
 	return retIndex

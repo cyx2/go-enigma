@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"go-enigma/enigma"
 	"testing"
 )
@@ -27,7 +26,7 @@ func TestRotorRotate(t *testing.T) {
 	}
 }
 
-func TestRotorRotateRead(t *testing.T) {
+func TestRotorRotateOffset(t *testing.T) {
 	baseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
 	rotor := enigma.InitRotor(baseWiring)
 
@@ -54,6 +53,33 @@ func TestRotorRotateRead(t *testing.T) {
 	if readLetter != expReadLetter {
 		t.Errorf("Single rotation, rotor offset %v, read %v want %v", enigma.GetRotorOffset(rotor), readLetter, expReadLetter)
 	}
+}
+
+func TestRotorRotateRead(t *testing.T) {
+	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
+
+	baseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+	singleRotor := enigma.InitRotor(baseWiring)
+	rotors := []*enigma.Rotor{singleRotor}
+
+	testLetter := "A"
+	forwardRead1 := enigma.ReadForward(rotors, testLetter)
+	expForwardRead1 := "E"
+
+	if forwardRead1 != expForwardRead1 {
+		t.Errorf("Tried to %v read with offset %v, got %v, want %v", testLetter, enigma.GetRotorOffset(singleRotor), forwardRead1, expForwardRead1)
+	}
+
+	singleRotor.Rotate()
+
+	forwardRead2 := enigma.ReadForward(rotors, testLetter)
+	expForwardRead2 := "K"
+
+	if forwardRead2 != expForwardRead2 {
+		t.Errorf("Tried to %v read with offset %v, got %v, want %v", testLetter, enigma.GetRotorOffset(singleRotor), forwardRead2, expForwardRead2)
+	}
+
 }
 
 func TestRotorEndBound(t *testing.T) {
@@ -170,7 +196,6 @@ func TestProcessLetter(t *testing.T) {
 	}
 }
 
-// NOTE that as of May 12 ProcessString and TestProcessString do not include rotor rotation
 func TestProcessString(t *testing.T) {
 	baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
 	baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
@@ -179,17 +204,16 @@ func TestProcessString(t *testing.T) {
 
 	newMachine := enigma.InitMachine(baseWiring1, baseWiring2, baseWiring3, reflBaseWiring)
 
-	testString := "AZ"
+	testString := "AAA"
 	processedString := newMachine.ProcessString(testString)
-	expProcessedString := "KE"
-	fmt.Println("Processed " + testString + " got " + processedString + " expected " + expProcessedString)
+	expProcessedString := "KBZ"
 
 	if processedString != expProcessedString {
 		t.Errorf("Tried to process string %v, got %v, want %v", testString, processedString, expProcessedString)
 	}
 
 	numLettersProcessed := enigma.GetMachineNumLettersProcessed(newMachine)
-	expNumLettersProcessed := 2
+	expNumLettersProcessed := 3
 
 	if numLettersProcessed != expNumLettersProcessed {
 		t.Errorf("Machine processed letters, got %v, want %v", numLettersProcessed, expNumLettersProcessed)
