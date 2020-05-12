@@ -116,6 +116,13 @@ func TestMachineInit(t *testing.T) {
 	if newMachineRotor3Offset != rotor3Offset {
 		t.Errorf("For rotor %v got offset of %v, want %v", rotor3Index, newMachineRotor3Offset, rotor3Offset)
 	}
+
+	numLettersProcessed := enigma.GetMachineNumLettersProcessed(newMachine)
+	expNumLettersProcessed := 0
+
+	if numLettersProcessed != expNumLettersProcessed {
+		t.Errorf("Machine processed no letters, got %v, want %v", numLettersProcessed, expNumLettersProcessed)
+	}
 }
 
 func TestProcessLetter(t *testing.T) {
@@ -180,4 +187,12 @@ func TestProcessString(t *testing.T) {
 	if processedString != expProcessedString {
 		t.Errorf("Tried to process string %v, got %v, want %v", testString, processedString, expProcessedString)
 	}
+
+	numLettersProcessed := enigma.GetMachineNumLettersProcessed(newMachine)
+	expNumLettersProcessed := 2
+
+	if numLettersProcessed != expNumLettersProcessed {
+		t.Errorf("Machine processed letters, got %v, want %v", numLettersProcessed, expNumLettersProcessed)
+	}
+
 }

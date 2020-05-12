@@ -21,6 +21,7 @@ type Reflector struct {
 
 // Machine defines a single Enigma machine
 type Machine struct {
-	rotors    []*Rotor
-	reflector *Reflector
+	rotors              []*Rotor
+	reflector           *Reflector
+	numLettersProcessed int
 }

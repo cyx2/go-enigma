@@ -35,6 +35,7 @@ func (machine *Machine) ProcessString(manyLetters string) (output string) {
 
 	for index, letter := range inputLetters {
 		processedLetters[index] = machine.ProcessLetter(string(letter))
+		machine.numLettersProcessed++
 	}
 
 	output = strings.Join(processedLetters, "")

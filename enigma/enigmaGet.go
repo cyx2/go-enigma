@@ -50,3 +50,8 @@ func GetMachineRotorOffset(machine *Machine, rotorIndex int) (rotorOffset int) {
 	rotorOffset = GetRotorOffset(rotors[rotorIndex])
 	return rotorOffset
 }
+
+// GetMachineNumLettersProcessed gets the number of letters processed by the machine
+func GetMachineNumLettersProcessed(machine *Machine) (numLettersProcessed int) {
+	return machine.numLettersProcessed
+}
