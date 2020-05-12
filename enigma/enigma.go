@@ -19,13 +19,13 @@ type Reflector struct {
 	reflWiring string
 }
 
+// Machine defines a single Enigma machine
+type Machine struct {
+	rotors    []*Rotor
+	reflector *Reflector
+}
+
 // Rotate function rotates a roter one notch
 func (rotor *Rotor) Rotate() {
 	rotor.offset++
-}
-
-// InitRotors3 initializes 3 Enigma rotors with the specified rotorWiring arguments
-func InitRotors3(rotorWiring1, rotorWiring2, rotorWiring3 string) (rotor1, rotor2, rotor3 *Rotor) {
-	rotor1, rotor2, rotor3 = InitRotor(rotorWiring1), InitRotor(rotorWiring2), InitRotor(rotorWiring3)
-	return
 }
