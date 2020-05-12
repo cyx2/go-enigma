@@ -55,7 +55,7 @@ func TestRotorRotateOffset(t *testing.T) {
 	}
 }
 
-func TestRotorRotateRead(t *testing.T) {
+func TestRotorRotateReadForward(t *testing.T) {
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
 	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
 
@@ -79,7 +79,32 @@ func TestRotorRotateRead(t *testing.T) {
 	if forwardRead2 != expForwardRead2 {
 		t.Errorf("Tried to %v read with offset %v, got %v, want %v", testLetter, enigma.GetRotorOffset(singleRotor), forwardRead2, expForwardRead2)
 	}
+}
 
+func TestRotorRotateReadBackward(t *testing.T) {
+	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
+	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+	baseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+	singleRotor := enigma.InitRotor(baseWiring)
+	rotors := []*enigma.Rotor{singleRotor}
+
+	testLetter := "H"
+	forwardRead1 := enigma.ReadBackward(rotors, testLetter)
+	expForwardRead1 := "P"
+
+	if forwardRead1 != expForwardRead1 {
+		t.Errorf("Tried to %v read with offset %v, got %v, want %v", testLetter, enigma.GetRotorOffset(singleRotor), forwardRead1, expForwardRead1)
+	}
+
+	singleRotor.Rotate()
+
+	forwardRead2 := enigma.ReadBackward(rotors, testLetter)
+	expForwardRead2 := "O"
+
+	if forwardRead2 != expForwardRead2 {
+		t.Errorf("Tried to %v read with offset %v, got %v, want %v", testLetter, enigma.GetRotorOffset(singleRotor), forwardRead2, expForwardRead2)
+	}
 }
 
 func TestRotorEndBound(t *testing.T) {

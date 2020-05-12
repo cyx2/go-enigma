@@ -14,6 +14,11 @@ func offsetAdjust(rawBaseIndex int) (newIndex int) {
 	// Mod denominator is the number of letters in the alphabet
 	const alphaLetters float64 = 26
 
+	if rawBaseIndex < 0 {
+		newIndex = rawBaseIndex + 26
+		return
+	}
+
 	newIndex = int(math.Mod(float64(rawBaseIndex), alphaLetters))
 	return
 }

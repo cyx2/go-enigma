@@ -21,7 +21,7 @@ func ReadRotor(rotor *Rotor, readIndex int) (retIndex int) {
 func ReadRotorBackwards(rotor *Rotor, readIndex int) (retIndex int) {
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
 	// Rotor Base: EKMFLGDQVZNTOWYHXUSPAIBRCJ
-	baseIndex := readIndex + GetRotorOffset(rotor)
+	baseIndex := readIndex + (-1)*GetRotorOffset(rotor)
 	baseIndex = offsetAdjust(baseIndex)
 
 	retLetter := GetAlphabetLetter(baseIndex)
