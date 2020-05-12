@@ -23,4 +23,12 @@ func TestSetRotorOffset(t *testing.T) {
 	if updatedRotorOffset1 != testRotorOffset1 {
 		t.Errorf("Set new offset, got %v, want %v", updatedRotorOffset1, testRotorOffset1)
 	}
+
+	testRotorOffset2 := 100
+	newRotor1.SetRotorOffset(testRotorOffset2)
+	updatedRotorOffset2 := enigma.GetRotorOffset(newRotor1)
+
+	if updatedRotorOffset2 != testRotorOffset1 {
+		t.Errorf("Shouldn't have been able to set new offset of %v, want it to stay as %v", updatedRotorOffset2, testRotorOffset1)
+	}
 }

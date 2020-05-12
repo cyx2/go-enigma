@@ -55,6 +55,40 @@ func TestRotorRotateRead(t *testing.T) {
 	}
 }
 
+func TestRotorEndBound(t *testing.T) {
+	baseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+	rotor := enigma.InitRotor(baseWiring)
+	rotor.SetRotorOffset(24)
+
+	readIndex := 0
+
+	readLetter1 := enigma.GetAlphabetLetter(enigma.ReadRotor(rotor, readIndex))
+	expReadLetter1 := "C"
+
+	if readLetter1 != expReadLetter1 {
+		t.Errorf("Rotor with offset %v got letter %v, want %v", enigma.GetRotorOffset(rotor), readLetter1, expReadLetter1)
+	}
+
+	rotor.Rotate()
+
+	readLetter2 := enigma.GetAlphabetLetter(enigma.ReadRotor(rotor, readIndex))
+	expReadLetter2 := "J"
+
+	if readLetter2 != expReadLetter2 {
+		t.Errorf("Rotor with offset %v got letter %v, want %v", enigma.GetRotorOffset(rotor), readLetter2, expReadLetter2)
+	}
+
+	// Rotate past end bound, expect offset to return to 0
+	rotor.Rotate()
+
+	readLetter3 := enigma.GetAlphabetLetter(enigma.ReadRotor(rotor, readIndex))
+	expReadLetter3 := "E"
+
+	if readLetter3 != expReadLetter3 {
+		t.Errorf("Rotor with offset %v got letter %v, want %v", enigma.GetRotorOffset(rotor), readLetter3, expReadLetter3)
+	}
+}
+
 func TestMachineInit(t *testing.T) {
 	baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
 	baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
