@@ -36,3 +36,17 @@ func GetRotorWiring(rotor *Rotor) (wiring string) {
 func GetRotorOffset(rotor *Rotor) (offset int) {
 	return rotor.offset
 }
+
+// GetMachineRotorWiring returns the base wiring of a rotor in a machine
+func GetMachineRotorWiring(machine *Machine, rotorIndex int) (baseWiring string) {
+	rotors := machine.rotors
+	baseWiring = GetRotorWiring(rotors[rotorIndex])
+	return baseWiring
+}
+
+// GetMachineRotorOffset returns the offset of a rotor in a machine
+func GetMachineRotorOffset(machine *Machine, rotorIndex int) (rotorOffset int) {
+	rotors := machine.rotors
+	rotorOffset = GetRotorOffset(rotors[rotorIndex])
+	return rotorOffset
+}

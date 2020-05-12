@@ -24,8 +24,3 @@ type Machine struct {
 	rotors    []*Rotor
 	reflector *Reflector
 }
-
-// Rotate function rotates a roter one notch
-func (rotor *Rotor) Rotate() {
-	rotor.offset++
-}
