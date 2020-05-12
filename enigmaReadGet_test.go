@@ -295,3 +295,35 @@ func TestRotorRoundTrip(t *testing.T) {
 		t.Errorf("Backward read failed, got %v, want %v", backwardRead, expBackwardRead)
 	}
 }
+
+// TestRotorRoundTripReflexive will encrypt and then decrypt
+// a letter, which should result in the same letter output
+func TestRotorRoundTripReflexive(t *testing.T) {
+	// Initialize with same rotor settings as TestRotorRoundTrip
+	baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+	baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
+	baseWiring3 := "BDFHJLCPRTXVZNYEIWGAKMUSQO"
+	reflBaseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+
+	rotor1, rotor2, rotor3 := enigma.InitRotors3(baseWiring1, baseWiring2, baseWiring3)
+	rotors := []*enigma.Rotor{rotor1, rotor2, rotor3}
+	reflector := enigma.InitReflector(reflBaseWiring)
+
+	forwardReadEncrypt := enigma.ReadForward(rotors, "A")
+	reflectorReadEncrypt := enigma.ReadReflector(reflector, forwardReadEncrypt)
+	backwardReadEncrypt := enigma.ReadBackward(rotors, reflectorReadEncrypt)
+	expBackwardReadEncrypt := "K"
+
+	if backwardReadEncrypt != expBackwardReadEncrypt {
+		t.Errorf("Encrypt failed, got %v, want %v", backwardReadEncrypt, expBackwardReadEncrypt)
+	}
+
+	forwardReadDecrypt := enigma.ReadForward(rotors, "K")
+	reflectorReadDecrypt := enigma.ReadReflector(reflector, forwardReadDecrypt)
+	backwardReadDecrypt := enigma.ReadBackward(rotors, reflectorReadDecrypt)
+	expBackwardReadDecrypt := "A"
+
+	if backwardReadDecrypt != expBackwardReadDecrypt {
+		t.Errorf("Decrypt failed, got %v, want %v", backwardReadDecrypt, expBackwardReadDecrypt)
+	}
+}

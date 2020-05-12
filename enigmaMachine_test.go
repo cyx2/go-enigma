@@ -1,7 +1,6 @@
 package main
 
 import (
-	"go-enigma/enigma"
 	"testing"
 )
 
@@ -26,10 +25,10 @@ func TestMachineInit(t *testing.T) {
 
 	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
-	baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
-	baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
-	baseWiring3 := "BDFHJLCPRTXVZNYEIWGAKMUSQO"
-	reflBaseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+	// baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+	// baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
+	// baseWiring3 := "BDFHJLCPRTXVZNYEIWGAKMUSQO"
+	// reflBaseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
 
-	machine := enigma.InitMachine(baseWiring1, baseWiring2, baseWiring3, reflBaseWiring)
+	// machine := enigma.InitMachine(baseWiring1, baseWiring2, baseWiring3, reflBaseWiring)
 }
