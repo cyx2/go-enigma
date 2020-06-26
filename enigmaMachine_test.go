@@ -222,16 +222,37 @@ func TestProcessLetter(t *testing.T) {
 }
 
 func TestProcessString(t *testing.T) {
+	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
+
+	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+	// Rotor Base2:AJDKSIRUXBLHWTMCQGZNPYFVOE
+
+	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+	// Rotor Base3:BDFHJLCPRTXVZNYEIWGAKMUSQO
+
+	// Base1: YRUHQSLDPXNGOKMIEBFZCWVJAT
+	// Refl1: TAJVWCZFBEIMKOGNXPDLSQHURY
+
+	// Rotor Base3:BDFHJLCPRTXVZNYEIWGAKMUSQO
+	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+	// Rotor Base2:AJDKSIRUXBLHWTMCQGZNPYFVOE
+	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
+	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
 	baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
 	baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
 	baseWiring3 := "BDFHJLCPRTXVZNYEIWGAKMUSQO"
-	reflBaseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+	reflBaseWiring := "YRUHQSLDPXNGOKMIEBFZCWVJAT"
 
 	newMachine := enigma.InitMachine(baseWiring1, baseWiring2, baseWiring3, reflBaseWiring)
 
 	testString := "AAA"
 	processedString := newMachine.ProcessString(testString)
-	expProcessedString := "KBZ"
+	expProcessedString := "DHL"
 
 	if processedString != expProcessedString {
 		t.Errorf("Tried to process string %v, got %v, want %v", testString, processedString, expProcessedString)
