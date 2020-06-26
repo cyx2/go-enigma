@@ -55,7 +55,6 @@ func ReadForward(rotors []*Rotor, letter string) (encryptedLetter string) {
 		rotors[i], rotors[j] = rotors[j], rotors[i]
 	}
 
-	encryptedLetter = GetAlphabetLetter(encryptedIndex)
 	return encryptedLetter
 }
 

@@ -222,27 +222,27 @@ func TestProcessLetter(t *testing.T) {
 	}
 }
 
-// func TestProcessString(t *testing.T) {
-// 	baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
-// 	baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
-// 	baseWiring3 := "BDFHJLCPRTXVZNYEIWGAKMUSQO"
-// 	reflBaseWiring := "YRUHQSLDPXNGOKMIEBFZCWVJAT"
+func TestProcessString(t *testing.T) {
+	baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+	baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
+	baseWiring3 := "BDFHJLCPRTXVZNYEIWGAKMUSQO"
+	reflBaseWiring := "YRUHQSLDPXNGOKMIEBFZCWVJAT"
 
-// 	newMachine := enigma.InitMachine(baseWiring1, baseWiring2, baseWiring3, reflBaseWiring)
+	newMachine := enigma.InitMachine(baseWiring1, baseWiring2, baseWiring3, reflBaseWiring)
 
-// 	testString := "AAA"
-// 	processedString := newMachine.ProcessString(testString)
-// 	expProcessedString := "DHL"
+	testString := "AAAAAAAAAA"
+	processedString := newMachine.ProcessString(testString)
+	expProcessedString := "UDHLXOJSOT"
 
-// 	if processedString != expProcessedString {
-// 		t.Errorf("Tried to process string %v, got %v, want %v", testString, processedString, expProcessedString)
-// 	}
+	if processedString != expProcessedString {
+		t.Errorf("Tried to process string %v, got %v, want %v", testString, processedString, expProcessedString)
+	}
 
-// 	numLettersProcessed := enigma.GetMachineNumLettersProcessed(newMachine)
-// 	expNumLettersProcessed := 3
+	numLettersProcessed := enigma.GetMachineNumLettersProcessed(newMachine)
+	expNumLettersProcessed := 10
 
-// 	if numLettersProcessed != expNumLettersProcessed {
-// 		t.Errorf("Machine processed letters, got %v, want %v", numLettersProcessed, expNumLettersProcessed)
-// 	}
+	if numLettersProcessed != expNumLettersProcessed {
+		t.Errorf("Machine processed letters, got %v, want %v", numLettersProcessed, expNumLettersProcessed)
+	}
 
-// }
+}
