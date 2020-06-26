@@ -37,6 +37,5 @@ func InitMachine(rotorWiring1, rotorWiring2, rotorWiring3, reflWiring string) (n
 func InitReflector(newWiring string) (newReflector *Reflector) {
 	newReflector = new(Reflector)
 	newReflector.baseWiring = newWiring
-	newReflector.reflWiring = reverse(newWiring)
 	return newReflector
 }

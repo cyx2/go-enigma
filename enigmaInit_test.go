@@ -37,13 +37,9 @@ func TestInitReflector(t *testing.T) {
 	// Refl Wiring: JCRBIAPSUXHYWOTNZVQDGLFMKE
 	reflBaseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
 	reflector := enigma.InitReflector(reflBaseWiring)
-	expReflWiring := "JCRBIAPSUXHYWOTNZVQDGLFMKE"
-	baseWiring, reflWiring := enigma.GetReflectorWiring(reflector)
+	baseWiring := enigma.GetReflectorWiring(reflector)
 
 	if baseWiring != reflBaseWiring {
 		t.Errorf("Got reflector base wiring of %v, want %v", baseWiring, reflBaseWiring)
-	}
-	if reflWiring != expReflWiring {
-		t.Errorf("Got reflector refl wiring of %v, want %v", reflWiring, expReflWiring)
 	}
 }

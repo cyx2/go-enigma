@@ -37,11 +37,6 @@ func (machine *Machine) ProcessString(manyLetters string) (output string) {
 	processedLetters := make([]string, len(inputLetters))
 
 	for index, letter := range inputLetters {
-
-		letterToBeProcessed := string(letter)
-		processedLetters[index] = machine.ProcessLetter(letterToBeProcessed)
-		machine.numLettersProcessed++
-
 		machine.rotors[2].Rotate()
 		if math.Mod(float64(machine.numLettersProcessed), 25) == 0 {
 			machine.rotors[1].Rotate()
@@ -50,6 +45,9 @@ func (machine *Machine) ProcessString(manyLetters string) (output string) {
 			machine.rotors[0].Rotate()
 		}
 
+		letterToBeProcessed := string(letter)
+		processedLetters[index] = machine.ProcessLetter(letterToBeProcessed)
+		machine.numLettersProcessed++
 	}
 
 	output = strings.Join(processedLetters, "")

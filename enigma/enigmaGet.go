@@ -23,8 +23,8 @@ func GetPlugboardWiring(plugboard *Plugboard) (plugboardWiring string) {
 }
 
 // GetReflectorWiring returns the base and refl wiring of a Reflector
-func GetReflectorWiring(reflector *Reflector) (baseWiring, reflWiring string) {
-	return reflector.baseWiring, reflector.reflWiring
+func GetReflectorWiring(reflector *Reflector) (baseWiring string) {
+	return reflector.baseWiring
 }
 
 // GetRotorWiring returns both the base and functional wiring of a rotor

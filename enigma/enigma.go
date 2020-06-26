@@ -16,7 +16,6 @@ type Plugboard struct {
 // Reflector defines a single Enigma reflector
 type Reflector struct {
 	baseWiring string
-	reflWiring string
 }
 
 // Machine defines a single Enigma machine
