@@ -1,8 +1,8 @@
 package enigma
 
 import (
-	"strings"
 	"math"
+	"strings"
 )
 
 // Rotate function rotates a roter one notch

@@ -178,39 +178,40 @@ func TestMachineInit(t *testing.T) {
 
 func TestProcessLetter(t *testing.T) {
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
-	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
+	// Rotor Base3:BDFHJLCPRTXVZNYEIWGAKMUSQO
 
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
 	// Rotor Base2:AJDKSIRUXBLHWTMCQGZNPYFVOE
 
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
-	// Rotor Base3:BDFHJLCPRTXVZNYEIWGAKMUSQO
+	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
 
-	// Base1: EKMFLGDQVZNTOWYHXUSPAIBRCJ
-	// Refl1: JCRBIAPSUXHYWOTNZVQDGLFMKE
+	// Alphabet: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+	// Refl1:    YRUHQSLDPXNGOKMIEBFZCWVJAT
 
-	// Rotor Base3:BDFHJLCPRTXVZNYEIWGAKMUSQO
+	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
 	// Rotor Base2:AJDKSIRUXBLHWTMCQGZNPYFVOE
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
-	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
+	// Rotor Base3:BDFHJLCPRTXVZNYEIWGAKMUSQO
 	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
 	baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
 	baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
 	baseWiring3 := "BDFHJLCPRTXVZNYEIWGAKMUSQO"
-	reflBaseWiring := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+	reflBaseWiring := "YRUHQSLDPXNGOKMIEBFZCWVJAT"
 
 	newMachine := enigma.InitMachine(baseWiring1, baseWiring2, baseWiring3, reflBaseWiring)
 
 	testLetter1 := "A"
 	processedLetter1 := newMachine.ProcessLetter(testLetter1)
-	expProcessedLetter1 := "K"
+	expProcessedLetter1 := "U"
 
-	testLetter2 := "Z"
+	testLetter2 := "E"
 	processedLetter2 := newMachine.ProcessLetter(testLetter2)
-	expProcessedLetter2 := "E"
+	expProcessedLetter2 := "B"
 
 	if processedLetter1 != expProcessedLetter1 {
 		t.Errorf("Tried to process %v, got %v, want %v", testLetter1, processedLetter1, expProcessedLetter1)
@@ -221,48 +222,27 @@ func TestProcessLetter(t *testing.T) {
 	}
 }
 
-func TestProcessString(t *testing.T) {
-	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
-	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
+// func TestProcessString(t *testing.T) {
+// 	baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+// 	baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
+// 	baseWiring3 := "BDFHJLCPRTXVZNYEIWGAKMUSQO"
+// 	reflBaseWiring := "YRUHQSLDPXNGOKMIEBFZCWVJAT"
 
-	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
-	// Rotor Base2:AJDKSIRUXBLHWTMCQGZNPYFVOE
+// 	newMachine := enigma.InitMachine(baseWiring1, baseWiring2, baseWiring3, reflBaseWiring)
 
-	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
-	// Rotor Base3:BDFHJLCPRTXVZNYEIWGAKMUSQO
+// 	testString := "AAA"
+// 	processedString := newMachine.ProcessString(testString)
+// 	expProcessedString := "DHL"
 
-	// Base1: YRUHQSLDPXNGOKMIEBFZCWVJAT
-	// Refl1: TAJVWCZFBEIMKOGNXPDLSQHURY
+// 	if processedString != expProcessedString {
+// 		t.Errorf("Tried to process string %v, got %v, want %v", testString, processedString, expProcessedString)
+// 	}
 
-	// Rotor Base3:BDFHJLCPRTXVZNYEIWGAKMUSQO
-	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+// 	numLettersProcessed := enigma.GetMachineNumLettersProcessed(newMachine)
+// 	expNumLettersProcessed := 3
 
-	// Rotor Base2:AJDKSIRUXBLHWTMCQGZNPYFVOE
-	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+// 	if numLettersProcessed != expNumLettersProcessed {
+// 		t.Errorf("Machine processed letters, got %v, want %v", numLettersProcessed, expNumLettersProcessed)
+// 	}
 
-	// Rotor Base1:EKMFLGDQVZNTOWYHXUSPAIBRCJ
-	// Alphabet:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
-	baseWiring1 := "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
-	baseWiring2 := "AJDKSIRUXBLHWTMCQGZNPYFVOE"
-	baseWiring3 := "BDFHJLCPRTXVZNYEIWGAKMUSQO"
-	reflBaseWiring := "YRUHQSLDPXNGOKMIEBFZCWVJAT"
-
-	newMachine := enigma.InitMachine(baseWiring1, baseWiring2, baseWiring3, reflBaseWiring)
-
-	testString := "AAA"
-	processedString := newMachine.ProcessString(testString)
-	expProcessedString := "DHL"
-
-	if processedString != expProcessedString {
-		t.Errorf("Tried to process string %v, got %v, want %v", testString, processedString, expProcessedString)
-	}
-
-	numLettersProcessed := enigma.GetMachineNumLettersProcessed(newMachine)
-	expNumLettersProcessed := 3
-
-	if numLettersProcessed != expNumLettersProcessed {
-		t.Errorf("Machine processed letters, got %v, want %v", numLettersProcessed, expNumLettersProcessed)
-	}
-
-}
+// }

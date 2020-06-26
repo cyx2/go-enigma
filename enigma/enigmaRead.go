@@ -31,40 +31,42 @@ func ReadRotorBackwards(rotor *Rotor, readIndex int) (retIndex int) {
 
 // ReadReflector takes in a readLetter and returns the reflected letter
 func ReadReflector(reflector *Reflector, readLetter string) (letter string) {
-	readIndex := GetWiringIndex(reflector.baseWiring, readLetter)
-	letter = string(reflector.reflWiring[readIndex])
+	readIndex := GetAlphabetIndex(readLetter)
+	letter = string(reflector.baseWiring[readIndex])
 	return letter
 }
 
 // ReadForward forward encrypts letter using 3 rotors in sequence
 func ReadForward(rotors []*Rotor, letter string) (encryptedLetter string) {
-	encryptedLetter = letter
-	encryptedIndex := GetAlphabetIndex(encryptedLetter)
-	for i := range rotors {
-		encryptedIndex = ReadRotor(rotors[i], encryptedIndex)
-	}
-	encryptedLetter = GetAlphabetLetter(encryptedIndex)
-	return encryptedLetter
-}
-
-// ReadBackward backward encrypts letter using 3 rotors in sequence
-func ReadBackward(rotors []*Rotor, letter string) (encryptedLetter string) {
-	// Reverse rotors to read them backwards
+	// Reverse rotors to read them forwards
 	for i, j := 0, len(rotors)-1; i < j; i, j = i+1, j-1 {
 		rotors[i], rotors[j] = rotors[j], rotors[i]
 	}
 
 	encryptedLetter = letter
-	var encryptedIndex int
+	encryptedIndex := GetAlphabetIndex(encryptedLetter)
 	for i := range rotors {
-		wiringIndex := GetWiringIndex(rotors[i].baseWiring, encryptedLetter)
-		encryptedIndex = ReadRotorBackwards(rotors[i], wiringIndex)
+		encryptedIndex = ReadRotor(rotors[i], encryptedIndex)
 		encryptedLetter = GetAlphabetLetter(encryptedIndex)
 	}
 
 	// Return rotor order back to initial sequence
 	for i, j := 0, len(rotors)-1; i < j; i, j = i+1, j-1 {
 		rotors[i], rotors[j] = rotors[j], rotors[i]
+	}
+
+	encryptedLetter = GetAlphabetLetter(encryptedIndex)
+	return encryptedLetter
+}
+
+// ReadBackward backward encrypts letter using 3 rotors in sequence
+func ReadBackward(rotors []*Rotor, letter string) (encryptedLetter string) {
+	encryptedLetter = letter
+	var encryptedIndex int
+	for i := range rotors {
+		wiringIndex := GetWiringIndex(rotors[i].baseWiring, encryptedLetter)
+		encryptedIndex = ReadRotorBackwards(rotors[i], wiringIndex)
+		encryptedLetter = GetAlphabetLetter(encryptedIndex)
 	}
 
 	encryptedLetter = GetAlphabetLetter(encryptedIndex)
